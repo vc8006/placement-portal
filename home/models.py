@@ -32,7 +32,6 @@ class Branch(models.Model):
 		return self.branchName
 
 
-
 class Student(models.Model):
 	name = models.CharField(max_length=200)
 	roll=models.CharField(max_length=50, unique= True)
@@ -78,6 +77,7 @@ class Day(models.Model):
 
 	def __str__(self):
 		return f'{self.dayNum}-{self.branch.branchName}'
+
 
 class DayTotal(models.Model):
 

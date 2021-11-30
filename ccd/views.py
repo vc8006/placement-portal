@@ -39,8 +39,7 @@ def ajax_get_file_list(request):
 
 # view function for get or post ajax request
 @login_required
-@user_passes_test(is_ccd_member,login_url="home:permission_not_granted")
-
+@user_passes_test(is_ccd_member, login_url="home:permission_not_granted")
 def ajax_upload_file(request):
     # print(request.method)
     # print(request.is_ajax())
@@ -54,8 +53,7 @@ def ajax_upload_file(request):
 
 # function for validating and saving fileForm if it is a post request
 @login_required
-@user_passes_test(is_ccd_member,login_url="home:permission_not_granted")
-
+@user_passes_test(is_ccd_member, login_url="home:permission_not_granted")
 def save_file_form(request,form):
     data = dict()
     template = 'ccd/partial_file_upload.html'
@@ -106,7 +104,6 @@ def home(request):
 
 @login_required
 @user_passes_test(is_ccd_member,login_url="home:permission_not_granted")
-
 @csrf_exempt
 def ajax_update_database(request):
     context = dict()
@@ -120,22 +117,21 @@ def ajax_update_database(request):
         # print(headings)
         data_list = data['data_list']
         # print(data_list[:2])
-        d = {    "Name":"name",
-                 "Roll No.":"roll",
-                 "Program":'programs',
-                 "Branch":'branch_id',
-                 "Day":'day',
-                 "Company":'company',
-                 "Placed":'placed',
-                 "Sector":'sector',
-                 "Profile":'profile',
-                 "Slot":'slot',
-                }
-        headings_required = ["Name", "Roll No.", "Program","Branch","Day","Company","Placed","Sector","Profile","Slot",]
-        # print(sorted(headings))
-        # print(sorted(headings_required))
+        d = {    
+            "Name":"name",
+            "Roll No.":"roll",
+            "Program":'programs',
+            "Branch":'branch_id',
+            "Day":'day',
+            "Company":'company',
+            "Placed":'placed',
+            "Sector":'sector',
+            "Profile":'profile',
+            "Slot":'slot',
+        }
+        headings_required = ["Name", "Roll No.", "Program", "Branch", "Day", "Company", "Placed", "Sector", "Profile", "Slot"]
+
         if sorted(headings)==sorted(headings_required):
-            # print(len(data_list))
             for i in range(len(data_list)):
                 if(len(data_list[i])!=len(headings)):
                     print("list length error for row {}!".format(i+1))
@@ -145,21 +141,18 @@ def ajax_update_database(request):
                     for h,val in zip(headings,data_list[i]):
                         if d[h]=="placed":
                             if val=="Not Placed":
-                                student_dict['placed']=False
+                                student_dict['placed'] = False
                             elif val=="Placed":
                                 student_dict['placed'] = True
                         elif d[h]=="branch_id":
                             student_dict['branch_id'] = Branch.objects.get(branchName=val).id
-
                         else:
                             student_dict[d[h]]= val
-                    print(student_dict)
+
                     if(student_dict['roll']==''):
                         pass
                     else:
-                        # if i<5:
-                        #     print(student_dict)
-                        is_exist = Student.objects.filter(roll = student_dict['roll']).count()
+                        is_exist = Student.objects.filter(roll=student_dict['roll']).count()
                         if update_type=="1":
                             if is_exist:
                                 obj= Student.objects.get(roll=student_dict['roll'])
@@ -173,6 +166,10 @@ def ajax_update_database(request):
                                 obj.profile = student_dict['profile']
                                 obj.slot = student_dict['slot']
                                 obj.save()
+                            else:
+                                # put a code to raise error that student does not exits, please use type 2/3
+                                pass
+
                         elif update_type=="2":
                             if not is_exist:
                                 obj = Student.objects.create(**student_dict)
@@ -196,10 +193,6 @@ def ajax_update_database(request):
         else:
             print("headers are not matching!")
 
-
-
-
-
     return JsonResponse(context)
 
 ################################################################################
@@ -208,7 +201,6 @@ def ajax_update_database(request):
 
 @login_required
 @user_passes_test(is_ccd_member,login_url="home:permission_not_granted")
-
 def ajax_get_branch_options(request):
     data = dict()
     if request.method =='GET' and request.is_ajax():
@@ -222,7 +214,6 @@ def ajax_get_branch_options(request):
 
 @login_required
 @user_passes_test(is_ccd_member,login_url="home:permission_not_granted")
-
 def ajax_filter(request):
     data = dict()
     if request.method == 'GET' and request.is_ajax():
@@ -247,11 +238,8 @@ def ajax_filter(request):
 ################################################################################
 # functions for the CRUD view of Student model
 
-
-
 @login_required
 @user_passes_test(is_ccd_member,login_url="home:permission_not_granted")
-
 def save_student_form(request, form, template_name):
     if request.is_ajax():
         data = dict()
@@ -272,7 +260,6 @@ def save_student_form(request, form, template_name):
 
 @login_required
 @user_passes_test(is_ccd_member,login_url="home:permission_not_granted")
-
 def student_create(request):
     if request.is_ajax():
         if request.method == 'POST':
@@ -284,7 +271,6 @@ def student_create(request):
 
 @login_required
 @user_passes_test(is_ccd_member,login_url="home:permission_not_granted")
-
 def student_update(request,pk):
     if request.is_ajax():
         student = get_object_or_404(Student,pk=pk)
@@ -298,7 +284,6 @@ def student_update(request,pk):
 
 @login_required
 @user_passes_test(is_ccd_member,login_url="home:permission_not_granted")
-
 def student_delete(request, pk):
     if request.is_ajax():
         student = get_object_or_404(Student, pk=pk)

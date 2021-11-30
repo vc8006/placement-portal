@@ -1,13 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from .models import *
 from .forms import *
-from django.template import RequestContext
-from django.template.context_processors import csrf
-from django.http import HttpResponseRedirect,JsonResponse,HttpResponseNotFound
-from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.db.models.functions import Lower
 from django.template.loader import render_to_string
-from django.utils.text import slugify
 from django.contrib.auth.decorators import login_required
 import json
 
@@ -20,6 +16,7 @@ def permission_not_granted(request):
 
 def handler404(request,exception,template_name='404.html'):
     return render(request,template_name)
+	
 def handler500(request):
     return render(request,'500.html')
 
@@ -151,6 +148,7 @@ def charts(request):
 		tmp["num"]=num
 		tmp["den"]=den
 		btech_branchwise_placements.append(tmp)
+
 	for bch in branches:
 		tmp = {}
 		tmp["group"] = bch
@@ -204,6 +202,8 @@ def charts(request):
 
 	# print(context)
 	return render(request, "home/stats.html",context )
+
+
 ################################################################################
 # function to render the table
 
@@ -219,8 +219,8 @@ def get_table(request):
 	context = {'students':students,'branches':branches}
 	return render(request,'home/table_home.html',context)
 
-################################################################################
 
+################################################################################
 # function to filter the table data
 
 @login_required
