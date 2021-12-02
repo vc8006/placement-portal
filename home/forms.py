@@ -8,9 +8,7 @@ class StudentPlacedForm(forms.ModelForm):
 		fields = [
 			'programs',
 			'placed',
-			'company',
-			'sector',
-			'profile',	
+			'company',	
 			'day',
 			'slot',
 		]

@@ -125,11 +125,12 @@ def ajax_update_database(request):
             "Day":'day',
             "Company":'company',
             "Placed":'placed',
-            "Sector":'sector',
-            "Profile":'profile',
+            # "Sector":'sector',
+            # "Profile":'profile',
             "Slot":'slot',
         }
-        headings_required = ["Name", "Roll No.", "Program", "Branch", "Day", "Company", "Placed", "Sector", "Profile", "Slot"]
+        headings_required = ["Name", "Roll No.", "Program", "Branch", "Day", "Company", "Placed", "Slot"]
+        # headings_required = ["Name", "Roll No.", "Program", "Branch", "Day", "Company", "Placed", "Sector", "Profile", "Slot"]
 
         if sorted(headings)==sorted(headings_required):
             for i in range(len(data_list)):
@@ -162,8 +163,8 @@ def ajax_update_database(request):
                                 obj.day = student_dict['day']
                                 obj.company = student_dict['company']
                                 obj.placed = student_dict['placed']
-                                obj.sector = student_dict['sector']
-                                obj.profile = student_dict['profile']
+                                # obj.sector = student_dict['sector']
+                                # obj.profile = student_dict['profile']
                                 obj.slot = student_dict['slot']
                                 obj.save()
                             else:
@@ -182,8 +183,8 @@ def ajax_update_database(request):
                                 obj.day = student_dict['day']
                                 obj.company = student_dict['company']
                                 obj.placed = student_dict['placed']
-                                obj.sector = student_dict['sector']
-                                obj.profile = student_dict['profile']
+                                # obj.sector = student_dict['sector']
+                                # obj.profile = student_dict['profile']
                                 obj.slot = student_dict['slot']
                                 obj.save()
                             else:
