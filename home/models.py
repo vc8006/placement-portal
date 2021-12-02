@@ -55,8 +55,8 @@ class Student(models.Model):
 	day=models.IntegerField(validators=[MaxValueValidator(10),MinValueValidator(0)],default=0, blank=True,null=True)
 	company = models.CharField(max_length=100, blank=True)
 	placed = models.BooleanField(default=False)
-	sector = models.CharField(max_length=100, blank=True)
-	profile = models.CharField(max_length=100, blank=True)
+	# sector = models.CharField(max_length=100, blank=True)
+	# profile = models.CharField(max_length=100, blank=True)
 	SLOT_CHOICES = [
         ('S1', 'Slot 1'),
         ('S2', 'Slot 2'),
